@@ -1,0 +1,2 @@
+# mycoin
+dev mycoin
