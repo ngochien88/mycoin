@@ -60,37 +60,3 @@ class Block {
     return new this(timestamp, lastHash, hash, data, nonce, difficulty);
   }
 
-  /**
-   * function to create the hash value of the block data
-   */
-
-  static hash(timestamp, lastHash, data, nonce, difficulty) {
-    return SHA256(`${timestamp}${lastHash}${data}${nonce}${difficulty}`);
-  }
-
-  /**
-   * return the hash value of the passed block
-   */
-
-  static blockHash(block) {
-    //destructuring
-    const { timestamp, lastHash, data, nonce, difficulty } = block;
-    return Block.hash(timestamp, lastHash, data, nonce, difficulty);
-  }
-
-  /**
-   * utility function to adjust difficulty
-   */
-
-  static adjustDifficulty(lastBlock, currentTime) {
-    let { difficulty } = lastBlock;
-    difficulty =
-      lastBlock.timestamp + MINE_RATE > currentTime
-        ? difficulty + 1
-        : difficulty - 1;
-    if (difficulty < 0) difficulty = 0;
-    return difficulty;
-  }
-}
-
-module.exports = Block;
