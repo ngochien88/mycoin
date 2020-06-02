@@ -1,8 +1,52 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.peer-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-a {
-  color: #00B7FF;
+ol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-peer-btn {
+  height: 100%;
+  align-self: center;
+  margin-right: 50px;
+}
+
+.peer-icon {
+  font-size: 60px;
+  text-align: center;
+}
+.blockchain-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-width: thin;
+  border-style: dotted;
+  border-color: black;
+  background-color: #bdc3c7;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.add-block {
+  display: flex;
+  margin-top: 70px;
+  flex-direction: column;
+  align-items: center;
+  border-width: thin;
+  border-style: dotted;
+  border-color: black;
+  background-color: #bdc3c7;
+  width: auto;
+  padding: 20px;
 }

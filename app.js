@@ -18,6 +18,10 @@ app.use(bodyParser.json());
 app.use(logger("dev"));
 app.use(express.json());
 
+app.use(bodyParser.json());
+app.use(logger("dev"));
+app.use(express.json());
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 

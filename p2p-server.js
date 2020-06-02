@@ -26,6 +26,16 @@ class P2pserver {
     // to connect to the peers that we have specified
     this.connectToPeers();
 
+listen() {
+    // create the p2p server with port as argument
+    const server = new WebSocket.Server({ port: P2P_PORT });
 
+    // event listener and a callback function for any new connection
+    // on any new connection the current instance will send the current chain
+    // to the newly connected peer
+    server.on("connection", (socket) => this.connectSocket(socket));
+
+    // to connect to the peers that we have specified
+    this.connectToPeers();
 
 module.exports = P2pserver;
