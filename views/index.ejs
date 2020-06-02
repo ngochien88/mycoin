@@ -28,7 +28,25 @@
             'color:red' : 'color:black'%> ></i></a>
           </button>
           <h2>Peer <%= peer.name %></h2>
-
+          <% if (peer_index+1 != index) {%> <div><% if (peers[index-1].connect[peer_index]) { %> <a href='/peer/<%=index%>/disconnect/<%=peer_index+1%>'><button>Disconnect</button></a><button>View History</button></div><%} else {%> <a href='/peer/<%=index%>/connect/<%=peer_index+1%>'><button>Connect</button></a> <%};}; %>
+          <a href="/peer/<%= peer_index + 1%>/delete"><i class="fas fa-trash-alt"></i></a>
+        </ol>
+      <% } ); %>
+    </div>
+      <a href="/addPeer"><button class="add-peer-btn" style='height: 50px;'>Add peer</button></a>
+    </div>
+    <div class="blockchain-section">
+      <h1>Blockchain</h1>
+      <% if (peer) peer.blockchain.chain.forEach((block, block_index) => { %>
+      <block>
+        <div>
+          <span>DATA</span>
+          <input type="text" value="<%= block.data %>" />
+        </div>
+        <span>Previous Hash: <%= block.lastHash %></span>
+        <span>Hash: <%= block.hash %></span>
+        <div>
+          <span style='font-size: 24px; font-weight: bold;'>#<%=block_index%></span>
           <span style='margin-right:10px; margin-left: 10px;'}}>
             <%=new Date(block.timestamp).getHours()%><%=":"%><%=new Date(block.timestamp).getMinutes()%><%=":"%><%=new Date(block.timestamp).getSeconds()%>
             <%=new Date(block.timestamp).getDate()%><%="/"%><%=new Date(block.timestamp).getMonth()%><%="/"%><%=new Date(block.timestamp).getFullYear()%>
