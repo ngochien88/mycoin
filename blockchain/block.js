@@ -47,16 +47,6 @@ class Block {
 
     let { difficulty } = lastBlock;
 
-    let nonce = 0;
-    //generate the hash of the block
-    do {
-      nonce++;
-      timestamp = Date.now();
-      difficulty = Block.adjustDifficulty(lastBlock, timestamp);
-      hash = Block.hash(timestamp, lastHash, data, nonce, difficulty);
-      // checking if we have the required no of leading number of zeros
-    } while (hash.substring(0, difficulty) !== "0".repeat(difficulty));
-
-    return new this(timestamp, lastHash, hash, data, nonce, difficulty);
+   
   }
 
