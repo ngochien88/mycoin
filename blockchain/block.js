@@ -47,6 +47,50 @@ class Block {
 
     let { difficulty } = lastBlock;
 
-   
+    let nonce = 0;
+    //generate the hash of the block
+    do {
+      nonce++;
+      timestamp = Date.now();
+      difficulty = Block.adjustDifficulty(lastBlock, timestamp);
+      hash = Block.hash(timestamp, lastHash, data, nonce, difficulty);
+      // checking if we have the required no of leading number of zeros
+    } while (hash.substring(0, difficulty) !== "0".repeat(difficulty));
+
+    return new this(timestamp, lastHash, hash, data, nonce, difficulty);
   }
 
+  /**
+   * function to create the hash value of the block data
+   */
+
+  static hash(timestamp, lastHash, data, nonce, difficulty) {
+    return SHA256(`${timestamp}${lastHash}${data}${nonce}${difficulty}`);
+  }
+
+  /**
+   * return the hash value of the passed block
+   */
+
+  static blockHash(block) {
+    //destructuring
+    const { timestamp, lastHash, data, nonce, difficulty } = block;
+    return Block.hash(timestamp, lastHash, data, nonce, difficulty);
+  }
+
+  /**
+   * utility function to adjust difficulty
+   */
+
+  static adjustDifficulty(lastBlock, currentTime) {
+    let { difficulty } = lastBlock;
+    difficulty =
+      lastBlock.timestamp + MINE_RATE > currentTime
+        ? difficulty + 1
+        : difficulty - 1;
+    if (difficulty < 0) difficulty = 0;
+    return difficulty;
+  }
+}
+
+module.exports = Block;
