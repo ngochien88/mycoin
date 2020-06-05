@@ -22,12 +22,7 @@ describe("Block", () => {
    * first param is a description
    * second param is callback arrow function
    */
-  it("sets the `data` to match the input", () => {
-    /**
-     * expect is similar to assert
-     * it expects something
-     */
-    expect(block.data).toEqual(data);
+
   });
 
 

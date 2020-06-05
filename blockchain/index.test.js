@@ -8,20 +8,7 @@ describe("Blockchain", () => {
     blockchain2 = new Blockchain();
   });
 
-  it("starts with the genesis block", () => {
-    expect(blockchain.chain[0]).toEqual(Block.genesis());
-  });
-
-
-  it("invalidates a chain with a corrupt the genesis block", () => {
-    blockchain2.chain[0].data = "bad data";
-
-    expect(blockchain.isValidChain(blockchain2.chain)).toBe(false);
-  });
-
-  it("invalidates a corrput chain", () => {
-    blockchain2.addBlock("foo");
-    blockchain2.chain[1].data = "not foo";
+ 
 
     expect(blockchain.isValidChain(blockchain2.chain)).toBe(false);
   });
