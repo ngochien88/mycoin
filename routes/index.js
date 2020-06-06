@@ -31,6 +31,18 @@ router.get("/peer/:id", function (req, res, next) {
   });
 });
 
+/* ADD data of peer */
+router.post("/peer/:id/addData", function (req, res, next) {
+  peers[req.params.id - 1].blockchain.addBlock(req.body.data);
+  peers.forEach((peer, index) => {
+    if (peers[req.params.id - 1].connect[index]) {
+      blockchainSender = peers[req.params.id - 1].blockchain;
+      blockchainReceiver = peers[index].blockchain;
+      handleConnect(blockchainReceiver, blockchainSender);
+    }
+  });
+  res.redirect("back");
+});
 
 /* DELETE peer */
 router.get("/peer/:id/delete", function (req, res, next) {

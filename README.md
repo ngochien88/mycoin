@@ -1,2 +1,2 @@
-# mycoin
-dev mycoin
+# nodechain
+A server simple of Blockchain bitcoin
