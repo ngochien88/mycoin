@@ -26,16 +26,56 @@ class P2pserver {
     // to connect to the peers that we have specified
     this.connectToPeers();
 
-listen() {
-    // create the p2p server with port as argument
-    const server = new WebSocket.Server({ port: P2P_PORT });
+    console.log(`Listening for peer to peer connection on port : ${P2P_PORT}`);
+  }
+  //synchronize the chains
+  syncChain() {
+    this.sockets.forEach((socket) => {
+      this.sendChain(socket);
+    });
+  }
 
-    // event listener and a callback function for any new connection
-    // on any new connection the current instance will send the current chain
-    // to the newly connected peer
-    server.on("connection", (socket) => this.connectSocket(socket));
+  //Send our chain
+  sendChain(socket) {
+    socket.send(JSON.stringify(this.blockchain.chain));
+  }
+  // after making connection to a socket
+  connectSocket(socket) {
+    // push the socket too the socket array
+    this.sockets.push(socket);
+    console.log("Socket connected");
+    // register a message event listener to the socket
+    this.messageHandler(socket);
+    // on new connection send the blockchain chain to the peer
+    this.sendChain(socket);
+  }
 
-    // to connect to the peers that we have specified
-    this.connectToPeers();
+  connectToPeers() {
+    //connect to each peer
+    peers.forEach((peer) => {
+      // create a socket for each peer
+      const socket = new WebSocket(peer);
+
+      // open event listner is emitted when a connection is established
+      // saving the socket in the array
+      socket.on("open", () => this.connectSocket(socket));
+    });
+  }
+
+  //synchronize the chains
+  syncChain() {
+    this.sockets.forEach((socket) => {
+      this.sendChain(socket);
+    });
+  }
+
+  messageHandler(socket) {
+    //on recieving a message execute a callback function
+    socket.on("message", (message) => {
+      const data = JSON.parse(message.toString());
+      console.log("data ", data);
+    });
+  }
+}
 
 module.exports = P2pserver;
